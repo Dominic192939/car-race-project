@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CarProject.Logic;
+﻿using CarProject.Logic;
 
 namespace CarProject.UnitTests
 {
@@ -11,25 +6,55 @@ namespace CarProject.UnitTests
     public class TrackTests
     {
         [TestMethod]
-        public void ItShouldCreateATrack_GivenAnyNumbersOfSections()
+        public void ItShouldSaveTheStartSectionOfATrack_GivenAnyNumberOfSections()
         {
-            List<Section> trackList = new();
-            Section startSection = new Section(50, 300);
-            Section section = new Section(70, 500);
-            Section lastSection = new Section(60, 200);
-            trackList.Add(startSection);
-            trackList.Add(section);
-            trackList.Add(lastSection);
+            Section startSection = new(50, 300);
+            Section middleSection = new(70, 500);
+            Section lastSection = new(60, 200);
+            List<Section> sections = new() { startSection, middleSection, lastSection };
 
-            Track track = new Track(trackList);
+            Track track = new(sections);
 
             Assert.AreEqual(startSection, track.StartSection);
         }
-        [TestMethod]
-        public void ItShouldReturnNumberOfSections()
-        {
 
+        [TestMethod]
+        public void ItShouldReturnTotalLength_GivenMultipleSections()
+        {
+            Section startSection = new(50, 300);
+            Section middleSection = new(70, 500);
+            Section lastSection = new(60, 200);
+            List<Section> sections = new() { startSection, middleSection, lastSection };
+
+            Track track = new(sections);
+
+            Assert.AreEqual(1000, track.TotalLength);
         }
 
+        [TestMethod]
+        public void ItShouldReturnMaxSpeed_GivenMultipleSections()
+        {
+            Section startSection = new(50, 300);
+            Section middleSection = new(70, 500);
+            Section lastSection = new(60, 200);
+            List<Section> sections = new() { startSection, middleSection, lastSection };
+
+            Track track = new(sections);
+
+            Assert.AreEqual(70, track.MaximumSpeed);
+        }
+
+        [TestMethod]
+        public void ItShouldConnectTheLastSegmentToTheFirst_GivenAnAdditionalParameterForALoopedTrack()
+        {
+            Section startSection = new(50, 300);
+            Section middleSection = new(70, 500);
+            Section lastSection = new(60, 200);
+            List<Section> sections = new() { startSection, middleSection, lastSection };
+
+            Track track = new(sections, isLoopedTrack: true);
+
+            Assert.AreEqual(startSection, lastSection.NextSection);
+        }
     }
 }

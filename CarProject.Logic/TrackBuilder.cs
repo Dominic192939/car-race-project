@@ -8,11 +8,38 @@ namespace CarProject.Logic
 {
     public class TrackBuilder
     {
-        private (int, int)[] sectionInfos;
+        #region Fields
+        private readonly (int Start, int End)[] _sectionDetails;
+        private readonly Track? _raceTrack;
+        #endregion
 
-        public TrackBuilder((int, int)[] sectionInfos)
+        #region Properties
+        public Track? RaceTrack => _raceTrack;
+        #endregion
+
+        #region Constructor
+        public TrackBuilder((int Start, int End)[] sectionDetails, bool isTrackLooping = false)
         {
-            this.sectionInfos = sectionInfos;
+            _sectionDetails = sectionDetails;
+
+            List<Section> sections = new List<Section>();
+            Section? previousSection = null;
+
+            foreach ((int start, int end) in _sectionDetails)
+            {
+                Section currentSection = new Section(start, end);
+
+                if (sections.Count > 0)
+                {
+                    previousSection!.AddAfterMe(currentSection);
+                }
+
+                previousSection = currentSection;
+                sections.Add(currentSection);
+            }
+
+            _raceTrack = new Track(sections, isTrackLooping);
         }
+        #endregion
     }
 }
