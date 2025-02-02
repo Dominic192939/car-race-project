@@ -13,9 +13,16 @@ namespace CarProject.Logic
         private readonly bool _isLoopedTrack;
         #endregion
 
-        public Track(List<Section> trackList)
+        public Section? StartSection
         {
-            this._trackSections = trackList;
+            get
+            {
+                if (_trackSections.Count > 0)
+                {
+                    return _trackSections[0];
+                }
+                return null;
+            }
         }
 
         public int TotalLength
@@ -46,6 +53,30 @@ namespace CarProject.Logic
             }
         }
 
-        public Section? StartSection { get => _trackSections[0]; }
+        public bool IsLoopedTrack
+        {
+            get
+            {
+                return _isLoopedTrack;
+            }
+        }
+
+        public Track(List<Section>? sections, bool isLoopedTrack = false)
+        {
+            if (sections == null || sections.Count == 0)
+            {
+                throw new ArgumentNullException();
+            }
+
+            _trackSections = sections;
+            _isLoopedTrack = isLoopedTrack;
+
+            if (_isLoopedTrack)
+            {
+                Section lastSection = _trackSections[^1];
+                Section firstSection = _trackSections[0];
+                lastSection.AddAfterMe(firstSection);
+            }
+        }
     }
 }
