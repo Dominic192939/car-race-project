@@ -20,7 +20,7 @@ namespace CarProject.Logic
         #region Constructor
         public TrackBuilder((int Start, int End)[] sectionDetails, bool isTrackLooping = false)
         {
-            _sectionDetails = sectionDetails;
+            _sectionDetails = sectionDetails; 
 
             List<Section> sections = new List<Section>();
             Section? previousSection = null;
@@ -38,7 +38,7 @@ namespace CarProject.Logic
                 sections.Add(currentSection);
             }
 
-            _raceTrack = new Track(sections, isTrackLooping);
+            _raceTrack = new Track(sections, isTrackLooping); // For TrackBuilderTest
         }
         #endregion
     }
