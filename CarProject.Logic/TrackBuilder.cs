@@ -27,7 +27,7 @@ namespace CarProject.Logic
 
             foreach ((int start, int end) in _sectionDetails)
             {
-                Section currentSection = new Section(start, end);
+                Section currentSection = new Section(start, end); // For Unit Test purposes
 
                 if (sections.Count > 0)
                 {
