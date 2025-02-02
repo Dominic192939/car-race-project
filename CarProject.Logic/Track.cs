@@ -30,6 +30,21 @@ namespace CarProject.Logic
                 return totalLength;
             }
         }
+        public int MaximumSpeed
+        {
+            get
+            {
+                int maxSpeed = 0;
+                foreach (Section section in _trackSections)
+                {
+                    if (section.MaxSpeed > maxSpeed)
+                    {
+                        maxSpeed = section.MaxSpeed;
+                    }
+                }
+                return maxSpeed;
+            }
+        }
 
         public Section? StartSection { get => _trackSections[0]; }
     }
