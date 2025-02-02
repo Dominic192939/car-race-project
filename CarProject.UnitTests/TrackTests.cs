@@ -48,5 +48,18 @@ namespace CarProject.UnitTests
 
             Assert.AreEqual(70, track.MaximumSpeed);
         }
+
+        [TestMethod]
+        public void ItShouldConnectTheLastSegmentToTheFirst_GivenAnAdditionalParameterForALoopedTrack()
+        {
+            Section startSection = new(50, 300);
+            Section middleSection = new(70, 500);
+            Section lastSection = new(60, 200);
+            List<Section> sections = new() { startSection, middleSection, lastSection };
+
+            Track track = new(sections, isLoopedTrack: true);
+
+            Assert.AreEqual(startSection, lastSection.NextSection);
+        }
     }
 }
