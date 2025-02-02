@@ -11,25 +11,16 @@ namespace CarProject.UnitTests
     public class TrackTests
     {
         [TestMethod]
-        public void ItShouldCreateATrack_GivenAnyNumbersOfSections()
+        public void ItShouldSaveTheStartSectionOfATrack_GivenAnyNumberOfSections()
         {
-            List<Section> trackList = new();
-            Section startSection = new Section(50, 300);
-            Section section = new Section(70, 500);
-            Section lastSection = new Section(60, 200);
-            trackList.Add(startSection);
-            trackList.Add(section);
-            trackList.Add(lastSection);
+            Section startSection = new(50, 300);
+            Section middleSection = new(70, 500);
+            Section lastSection = new(60, 200);
+            List<Section> sections = new() { startSection, middleSection, lastSection };
 
-            Track track = new Track(trackList);
+            Track track = new(sections);
 
             Assert.AreEqual(startSection, track.StartSection);
         }
-        [TestMethod]
-        public void ItShouldReturnNumberOfSections()
-        {
-
-        }
-
     }
 }
