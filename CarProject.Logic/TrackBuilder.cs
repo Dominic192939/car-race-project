@@ -35,7 +35,7 @@ namespace CarProject.Logic
                 }
 
                 previousSection = currentSection;
-                sections.Add(currentSection);
+                sections.Add(currentSection); // Add sections to the list
             }
 
             _raceTrack = new Track(sections, isTrackLooping); // For TrackBuilderTest
