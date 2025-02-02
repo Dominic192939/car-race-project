@@ -8,13 +8,29 @@ namespace CarProject.Logic
 {
     public class Track
     {
-        private List<Section> _trackList;
-        
+        #region Fields
+        private readonly List<Section> _trackSections;
+        private readonly bool _isLoopedTrack;
+        #endregion
+
         public Track(List<Section> trackList)
         {
-            this._trackList = trackList;
+            this._trackSections = trackList;
         }
 
-        public Section? StartSection { get => _trackList[0]; }
+        public int TotalLength
+        {
+            get
+            {
+                int totalLength = 0;
+                foreach (Section section in _trackSections)
+                {
+                    totalLength += section.Length;
+                }
+                return totalLength;
+            }
+        }
+
+        public Section? StartSection { get => _trackSections[0]; }
     }
 }
